@@ -13,4 +13,26 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MainFabStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="backgroundTint">@color/royal_blue</item>
+        <item name="tint">@color/white</item>
+        <item name="srcCompat">@drawable/ic_add</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="SecondaryFabStyle" parent="Widget.Design.FloatingActionButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:visibility">invisible</item>
+        <item name="tint">@color/light_gray</item>
+    </style>
+
+
 </resources>
