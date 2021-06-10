@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Bazaar-Interview</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  add folder dialog  -->
+    <string name="add_folder_dialog_title">پوشه جدید</string>
+    <string name="add_folder_dialog_description">برای پوشه خود عنوان بنویسید.</string>
+    <string name="add_folder_dialog_edit_text_hint">عنوان پوشه</string>
+    <string name="add_folder_dialog_cancel_button">انصراف</string>
+    <string name="add_folder_dialog_accept_button">ایجاد پوشه</string>
+    <string name="please_enter_folder_name">لطفا نام پوشه را وارد کنید.</string>
 </resources>

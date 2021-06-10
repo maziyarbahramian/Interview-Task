@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/iransans_medium"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="@string/add_folder_dialog_title" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/iransans_regular"
+            android:gravity="right"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            tools:text="@string/add_folder_dialog_description" />
+
+        <EditText
+            android:id="@+id/input"
+            style="@style/CustomDialogEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_below="@id/description"
+            android:layout_marginTop="16dp"
+            android:hint="@string/add_folder_dialog_edit_text_hint" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/acceptButton"
+            style="@style/RoundedCornerMaterialButton"
+            android:layout_width="94dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/input"
+            android:layout_marginTop="16dp"
+            tools:text="@string/add_folder_dialog_accept_button" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancelButton"
+            style="@style/BorderLessMaterialButton"
+            android:layout_width="94dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/input"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/acceptButton"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="6dp"
+            tools:text="@string/add_folder_dialog_cancel_button" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

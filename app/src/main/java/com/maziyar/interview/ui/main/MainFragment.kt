@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
+import com.maziyar.interview.persistence.entities.Folder
+import com.maziyar.interview.ui.customViews.CustomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,7 +77,7 @@ class MainFragment : Fragment() {
             }
 
             fabAddFolder.setOnClickListener {
-                Log.i(TAG, "add folder button clicked")
+                showAddFolderDialog()
             }
 
             fabAddNote.setOnClickListener {
@@ -88,6 +91,31 @@ class MainFragment : Fragment() {
         setFabButtonsAnimation(isClickable)
         setFabButtonsClickable(isClickable)
         isClickable = !isClickable
+    }
+
+    private fun showAddFolderDialog() {
+        val dialog = CustomDialog(requireActivity())
+            .setTitleText(R.string.add_folder_dialog_title)
+            .setDescription(R.string.add_folder_dialog_description)
+            .setInputHint(R.string.add_folder_dialog_edit_text_hint)
+            .setAcceptButtonText(R.string.add_folder_dialog_accept_button)
+            .setCancelButtonText(R.string.add_folder_dialog_cancel_button)
+
+        dialog.setAcceptButtonClickListener {
+            val folderName = dialog.getInputText()
+            if (folderName.isNotEmpty()) {
+                viewModel.insertFolder(Folder(name = folderName))
+                dialog.dismiss()
+            } else
+                Toast.makeText(
+                    context,
+                    getString(R.string.please_enter_folder_name),
+                    Toast.LENGTH_SHORT
+                ).show()
+        }
+
+        dialog.show()
+        onFabAddButtonClicked()
     }
 
 
