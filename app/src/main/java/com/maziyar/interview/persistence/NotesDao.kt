@@ -1,7 +1,6 @@
 package com.maziyar.interview.persistence
 
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import com.maziyar.interview.persistence.entities.Folder
 import com.maziyar.interview.persistence.entities.Note
 
@@ -11,6 +10,7 @@ interface NotesDao {
     @Insert
     suspend fun insertFolder(folder: Folder)
 
-    @Insert
-    suspend fun insertNote(note: Note)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNote(note: Note): Long
+    
 }

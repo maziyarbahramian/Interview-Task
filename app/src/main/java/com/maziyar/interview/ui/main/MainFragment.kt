@@ -10,11 +10,13 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
 import com.maziyar.interview.persistence.entities.Folder
 import com.maziyar.interview.ui.customViews.CustomDialog
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -68,6 +70,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupFloatingActionButtons()
+        setupToolbar()
     }
 
     private fun setupFloatingActionButtons() {
@@ -81,6 +84,7 @@ class MainFragment : Fragment() {
             }
 
             fabAddNote.setOnClickListener {
+                findNavController().navigate(R.id.action_mainFragment_to_editNoteFragment)
                 Log.i(TAG, "add note button clicked")
             }
         }
@@ -104,7 +108,7 @@ class MainFragment : Fragment() {
         dialog.setAcceptButtonClickListener {
             val folderName = dialog.getInputText()
             if (folderName.isNotEmpty()) {
-                viewModel.insertFolder(Folder(name = folderName))
+                viewModel.insertFolder(Folder(name = folderName, date = Date()))
                 dialog.dismiss()
             } else
                 Toast.makeText(
@@ -145,6 +149,13 @@ class MainFragment : Fragment() {
         binding.apply {
             fabAddFolder.isClickable = !isClickable
             fabAddNote.isClickable = !isClickable
+        }
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.apply {
+            titleTextView.visibility = View.VISIBLE
+            titleTextView.text = getString(R.string.notes)
         }
     }
 

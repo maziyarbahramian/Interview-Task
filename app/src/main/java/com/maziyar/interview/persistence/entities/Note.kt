@@ -6,9 +6,9 @@ import java.util.*
 
 @Entity(tableName = "notes")
 data class Note(
-    @PrimaryKey val id: Long? = null,
-    val folder_id: Long = -1,
-    val title: String,
-    val body: String,
-//    val date: Date
+    @PrimaryKey(autoGenerate = false) var id: Long? = null,
+    var folder_id: Long = -1,
+    var title: String = "",
+    var body: String = "",
+    var date: Date? = null
 )

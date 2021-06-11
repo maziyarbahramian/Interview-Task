@@ -9,5 +9,13 @@
         android:id="@+id/mainFragment"
         android:name="com.maziyar.interview.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="com.maziyar.interview.ui.addNote.EditNoteFragment"
+        android:label="AddNoteFragment" />
 </navigation>

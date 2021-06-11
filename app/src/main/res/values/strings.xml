@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Bazaar-Interview</string>
+    <string name="notes">یادداشت ها</string>
 
     <!--  add folder dialog  -->
     <string name="add_folder_dialog_title">پوشه جدید</string>
@@ -8,4 +9,10 @@
     <string name="add_folder_dialog_cancel_button">انصراف</string>
     <string name="add_folder_dialog_accept_button">ایجاد پوشه</string>
     <string name="please_enter_folder_name">لطفا نام پوشه را وارد کنید.</string>
+
+    <!--  edit note fragment  -->
+    <string name="date_text_format">%s %s %s</string>
+    <string name="note_default_title">بدون عنوان</string>
+    <string name="note_title_edit_text_hint">عنوان یادداشت</string>
+
 </resources>

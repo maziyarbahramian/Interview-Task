@@ -10,4 +10,6 @@
 
     <color name="royal_blue">#4D5DF2</color>
     <color name="light_gray">#9DA0AF</color>
+    <color name="main_fragment_background">#F9FAFD</color>
+    <color name="edit_note_title_hint">#D1D4DD</color>
 </resources>
