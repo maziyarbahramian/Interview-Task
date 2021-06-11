@@ -1,7 +1,9 @@
 package com.maziyar.interview.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.maziyar.interview.persistence.entities.Folder
+import com.maziyar.interview.persistence.entities.ListItem
 import com.maziyar.interview.persistence.entities.Note
 
 @Dao
@@ -12,5 +14,8 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNote(note: Note): Long
-    
+
+    @Query("SELECT * FROM ListItem ORDER BY date DESC")
+    fun getMainListItems(): LiveData<List<ListItem>>
+
 }

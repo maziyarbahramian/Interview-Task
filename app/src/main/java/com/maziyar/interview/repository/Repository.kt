@@ -1,8 +1,10 @@
 package com.maziyar.interview.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.maziyar.interview.persistence.NotesDao
 import com.maziyar.interview.persistence.entities.Folder
+import com.maziyar.interview.persistence.entities.ListItem
 import com.maziyar.interview.persistence.entities.Note
 import javax.inject.Inject
 
@@ -22,4 +24,7 @@ constructor(
         return notesDao.insertNote(note)
     }
 
+    fun getMainListItems(): LiveData<List<ListItem>> {
+        return notesDao.getMainListItems()
+    }
 }

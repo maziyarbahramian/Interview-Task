@@ -71,6 +71,9 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupFloatingActionButtons()
         setupToolbar()
+        viewModel.mainListLiveData.observe(viewLifecycleOwner, {
+            Log.i(TAG, "onViewCreated: $it")
+        })
     }
 
     private fun setupFloatingActionButtons() {
