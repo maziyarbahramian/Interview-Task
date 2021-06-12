@@ -24,27 +24,28 @@ class CustomDialog(context: Activity) : Dialog(context) {
             window.attributes.windowAnimations = R.style.DialogAnimation
         }
 
-        val displayMetrics = DisplayMetrics()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val display = context.display
-            display?.getRealMetrics(displayMetrics)
-        } else {
-            @Suppress("DEPRECATION")
-            val display = context.windowManager.defaultDisplay
-            @Suppress("DEPRECATION")
-            display.getMetrics(displayMetrics)
-        }
 
-        val displayWidth = displayMetrics.widthPixels
-        val displayHeight = displayMetrics.heightPixels
+//        val displayMetrics = DisplayMetrics()
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            val display = context.display
+//            display?.getRealMetrics(displayMetrics)
+//        } else {
+//            @Suppress("DEPRECATION")
+//            val display = context.windowManager.defaultDisplay
+//            @Suppress("DEPRECATION")
+//            display.getMetrics(displayMetrics)
+//        }
+//
+//        val displayWidth = displayMetrics.widthPixels
+//        val displayHeight = displayMetrics.heightPixels
+//
+//        val layoutParams = WindowManager.LayoutParams()
+//        layoutParams.copyFrom(window!!.attributes)
 
-        val layoutParams = WindowManager.LayoutParams()
-        layoutParams.copyFrom(window!!.attributes)
-
-        val dialogWindowWidth = (displayWidth * 0.9).toInt()
+//        val dialogWindowWidth = (displayWidth * 0.9).toInt()
 
         binding = LayoutCustomDialogBinding.inflate(LayoutInflater.from(context))
-        binding.root.minimumWidth = dialogWindowWidth
+//        binding.root.minimumWidth = dialogWindowWidth
         setContentView(binding.root)
         binding.cancelButton.setOnClickListener {
             dismiss()

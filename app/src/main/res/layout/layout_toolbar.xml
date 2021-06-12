@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@color/white"
-    xmlns:tools="http://schemas.android.com/tools"
     app:contentInsetStart="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,9 +13,9 @@
 
         <ImageButton
             android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
             android:visibility="gone"
@@ -30,23 +30,24 @@
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
             android:fontFamily="@font/iransans_medium"
-            tools:text="فیلم و سریال"
+            android:gravity="right"
             android:textColor="@color/black"
+            android:textDirection="rtl"
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone"
-            android:gravity="right"
-            android:textDirection="rtl"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/menu_button"
             app:layout_constraintRight_toLeftOf="@id/back_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginRight="16dp" />
+            app:layout_goneMarginRight="16dp"
+            tools:text="فیلم و سریال" />
 
         <ImageButton
             android:id="@+id/menu_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_overflow"
             android:visibility="gone"
