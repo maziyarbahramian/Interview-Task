@@ -1,4 +1,4 @@
-package com.maziyar.interview.ui.addNote
+package com.maziyar.interview.ui.editNote
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,13 +28,13 @@ class EditNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditNoteBinding.inflate(inflater, container, false)
+        setupToolbar()
+        initDateTextView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
-        initDateTextView()
     }
 
     private fun setupToolbar() {

@@ -11,10 +11,13 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
 import com.maziyar.interview.persistence.entities.Folder
 import com.maziyar.interview.ui.customViews.CustomDialog
+import com.maziyar.interview.ui.main.list.MainAdapter
+import com.maziyar.interview.utils.SpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -26,6 +29,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var recyclerAdapter: MainAdapter
 
     private var isClickable = false
 
@@ -64,16 +68,27 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        setupFloatingActionButtons()
+        setupToolbar()
+        setupRecyclerView()
+        viewModel.mainListLiveData.observe(viewLifecycleOwner, {
+            Log.i(TAG, "onViewCreated: $it")
+            recyclerAdapter.submitList(it)
+        })
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupFloatingActionButtons()
-        setupToolbar()
-        viewModel.mainListLiveData.observe(viewLifecycleOwner, {
-            Log.i(TAG, "onViewCreated: $it")
-        })
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            recyclerAdapter = MainAdapter()
+            adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(SpaceItemDecoration(context, 8.0f))
+        }
     }
 
     private fun setupFloatingActionButtons() {

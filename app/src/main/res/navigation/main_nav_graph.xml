@@ -16,6 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/editNoteFragment"
-        android:name="com.maziyar.interview.ui.addNote.EditNoteFragment"
-        android:label="AddNoteFragment" />
+        android:name="com.maziyar.interview.ui.editNote.EditNoteFragment"
+        android:label="EditNoteFragment" />
 </navigation>

@@ -1,13 +1,11 @@
-package com.maziyar.interview.ui.addNote
+package com.maziyar.interview.ui.editNote
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maziyar.interview.persistence.entities.Note
 import com.maziyar.interview.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import saman.zamani.persiandate.PersianDate
 import javax.inject.Inject
 
 @HiltViewModel

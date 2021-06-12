@@ -57,7 +57,7 @@
         android:background="@android:color/transparent"
         android:fontFamily="@font/iransans_regular"
         android:gravity="right"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:textColor="@color/black"
