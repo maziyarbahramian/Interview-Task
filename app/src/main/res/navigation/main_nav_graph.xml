@@ -18,15 +18,46 @@
                 android:defaultValue="-1L"
                 app:argType="long" />
         </action>
+        <action
+            android:id="@+id/action_mainFragment_to_notesOfFolderFragment"
+            app:destination="@id/notesOfFolderFragment">
+            <argument
+                android:name="folderId"
+                app:argType="long" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.maziyar.interview.ui.editNote.EditNoteFragment"
-        tools:layout="@layout/fragment_edit_note"
-        android:label="EditNoteFragment" >
+        android:label="EditNoteFragment"
+        tools:layout="@layout/fragment_edit_note">
         <argument
             android:name="noteId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <argument
+            android:name="folderId"
             app:argType="long"
             android:defaultValue="-1L" />
+    </fragment>
+    <fragment
+        android:id="@+id/notesOfFolderFragment"
+        android:name="com.maziyar.interview.ui.notesOfFolder.NotesOfFolderFragment"
+        android:label="fragment_notes_of_folder"
+        tools:layout="@layout/fragment_notes_of_folder">
+        <argument
+            android:name="folderId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_notesOfFolderFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment">
+            <argument
+                android:name="noteId"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+        <argument
+            android:name="folderTitle"
+            app:argType="string" />
     </fragment>
 </navigation>

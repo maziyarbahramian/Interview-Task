@@ -81,6 +81,7 @@ class EditNoteFragment : Fragment() {
 
         note.title = if (title.isNotEmpty()) title else getString(R.string.note_default_title)
         note.body = body
+        note.folder_id = args.folderId
 
         if (note.date == null)
             note.date = Date()

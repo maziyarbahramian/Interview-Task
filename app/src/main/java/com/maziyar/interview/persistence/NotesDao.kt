@@ -21,4 +21,7 @@ interface NotesDao {
     @Query("select * from notes where id=:noteId")
     suspend fun getNoteById(noteId: Long): Note
 
+    @Query("SELECT * FROM notes WHERE folder_id=:folderId")
+    fun getNotesOfFolder(folderId: Long): LiveData<List<Note>>
+
 }

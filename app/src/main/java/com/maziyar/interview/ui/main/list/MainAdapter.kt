@@ -10,8 +10,8 @@ import com.maziyar.interview.ui.main.list.viewHolders.NoteViewHolder
 import java.lang.ClassCastException
 
 class MainAdapter(
-    val folderItemClickListener: ItemClickListener,
-    val noteItemClickListener: ItemClickListener,
+    val folderItemClickListener: ItemClickListener<ListItem>,
+    val noteItemClickListener: ItemClickListener<ListItem>,
 ) : ListAdapter<ListItem, RecyclerView.ViewHolder>(DiffCallBack()) {
 
     private val ITEM_VIEW_TYPE_NOTE = 0

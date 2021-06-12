@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.maziyar.interview.databinding.ListItemNoteBinding
 import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.entities.Note
 import com.maziyar.interview.ui.main.list.ItemClickListener
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -23,14 +24,27 @@ class NoteViewHolder(
 
     fun bind(
         item: ListItem,
-        itemClickListener: ItemClickListener
+        itemClickListener: ItemClickListener<ListItem>
     ) {
         view.apply {
             titleTextView.text = item.title
             subTitleTextView.text = getSubTitleText(item.date)
 
-            root.setOnClickListener { itemClickListener.onItemClick(item.id) }
-            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item.id) }
+            root.setOnClickListener { itemClickListener.onItemClick(item) }
+            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item) }
+        }
+    }
+
+    fun bind(
+        item: Note,
+        itemClickListener: ItemClickListener<Note>
+    ) {
+        view.apply {
+            titleTextView.text = item.title
+            subTitleTextView.text = getSubTitleText(item.date!!)
+
+            root.setOnClickListener { itemClickListener.onItemClick(item) }
+            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item) }
         }
     }
 

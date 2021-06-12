@@ -31,4 +31,8 @@ constructor(
     suspend fun getNoteById(noteId: Long): Note {
         return notesDao.getNoteById(noteId)
     }
+
+    fun getNotesOfFolder(folderId: Long): LiveData<List<Note>> {
+        return notesDao.getNotesOfFolder(folderId)
+    }
 }

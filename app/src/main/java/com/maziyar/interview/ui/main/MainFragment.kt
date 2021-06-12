@@ -86,13 +86,13 @@ class MainFragment : Fragment() {
     private fun setupRecyclerView() {
         recyclerAdapter = MainAdapter(
             folderItemClickListener = ItemClickListener(
-                onItemClickListener = {
-                    Toast.makeText(
-                        requireContext(),
-                        "folder clicked $it",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                onItemClickListener = { folder ->
+                    val direction =
+                        MainFragmentDirections.actionMainFragmentToNotesOfFolderFragment(
+                            folder.id,
+                            folder.title
+                        )
+                    findNavController().navigate(direction)
                 },
                 showOverflowMenu = {
                     Toast.makeText(
@@ -104,8 +104,9 @@ class MainFragment : Fragment() {
                 }
             ),
             noteItemClickListener = ItemClickListener(
-                onItemClickListener = { noteId ->
-                    val direction = MainFragmentDirections.actionMainFragmentToEditNoteFragment(noteId)
+                onItemClickListener = { note ->
+                    val direction =
+                        MainFragmentDirections.actionMainFragmentToEditNoteFragment(note.id)
                     findNavController().navigate(direction)
                 },
                 showOverflowMenu = {

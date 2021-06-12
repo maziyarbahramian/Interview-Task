@@ -21,14 +21,14 @@ class FolderViewHolder(
 
     fun bind(
         item: ListItem,
-        itemClickListener: ItemClickListener
+        itemClickListener: ItemClickListener<ListItem>
     ) {
         view.apply {
             titleTextView.text = item.title
             subTitleTextView.text = "حاوی %s یادداشت".format(item.subTitle)
 
-            root.setOnClickListener { itemClickListener.onItemClick(item.id) }
-            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item.id) }
+            root.setOnClickListener { itemClickListener.onItemClick(item) }
+            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item) }
         }
     }
 }

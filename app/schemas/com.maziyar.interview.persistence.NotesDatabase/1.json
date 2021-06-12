@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c5b0a39af800cc8f53b27bdb30db3d34",
+    "identityHash": "c4fab3c64ee2466160b6eb73a33dc672",
     "entities": [
       {
         "tableName": "notes",
@@ -81,10 +81,15 @@
         "foreignKeys": []
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "ListItem",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select id,\n                   title as title,\n                   date, \"\" as subTitle,\n                   0 as type\n            from notes where folder_id=-1 \n        union \n            select folders.id,\n                   folders.name as title,\n                   date, \n                   (select count(id) from notes where folders.id=notes.folder_id) as subTitle,\n                   1 as type \n            from folders"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5b0a39af800cc8f53b27bdb30db3d34')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c4fab3c64ee2466160b6eb73a33dc672')"
     ]
   }
 }

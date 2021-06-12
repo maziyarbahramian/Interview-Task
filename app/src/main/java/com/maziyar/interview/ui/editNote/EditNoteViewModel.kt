@@ -44,6 +44,7 @@ constructor(
         this.note.apply {
             title = note.title
             body = note.body
+            folder_id = note.folder_id
             id = if (id == null) note.id else id
             date = if (date == null) note.date else date
         }
