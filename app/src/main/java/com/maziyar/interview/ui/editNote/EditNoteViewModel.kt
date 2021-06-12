@@ -1,5 +1,6 @@
 package com.maziyar.interview.ui.editNote
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maziyar.interview.persistence.entities.Note
@@ -16,6 +17,10 @@ constructor(
 ) : ViewModel() {
     private val TAG = "EditNoteViewModel"
 
+    val existingNoteLiveData: MutableLiveData<Note> by lazy {
+        MutableLiveData()
+    }
+
     private var note: Note = Note()
 
     fun insertNote() {
@@ -28,11 +33,20 @@ constructor(
         }
     }
 
+    fun getExistingNote(noteId: Long) {
+        viewModelScope.launch {
+            existingNoteLiveData.value = repository.getNoteById(noteId)
+        }
+    }
+
     fun setNote(note: Note) {
-        this.note.title = note.title
-        this.note.body = note.body
-        this.note.folder_id = note.folder_id
-        this.note.date = note.date
+
+        this.note.apply {
+            title = note.title
+            body = note.body
+            id = if (id == null) note.id else id
+            date = if (date == null) note.date else date
+        }
     }
 
 }

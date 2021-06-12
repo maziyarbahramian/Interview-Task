@@ -9,13 +9,24 @@
         android:id="@+id/mainFragment"
         android:name="com.maziyar.interview.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_editNoteFragment"
-            app:destination="@id/editNoteFragment" />
+            app:destination="@id/editNoteFragment">
+            <argument
+                android:name="noteId"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.maziyar.interview.ui.editNote.EditNoteFragment"
-        android:label="EditNoteFragment" />
+        tools:layout="@layout/fragment_edit_note"
+        android:label="EditNoteFragment" >
+        <argument
+            android:name="noteId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
 </navigation>

@@ -104,9 +104,9 @@ class MainFragment : Fragment() {
                 }
             ),
             noteItemClickListener = ItemClickListener(
-                onItemClickListener = {
-                    Toast.makeText(requireContext(), "note clicked $it", Toast.LENGTH_SHORT)
-                        .show()
+                onItemClickListener = { noteId ->
+                    val direction = MainFragmentDirections.actionMainFragmentToEditNoteFragment(noteId)
+                    findNavController().navigate(direction)
                 },
                 showOverflowMenu = {
                     Toast.makeText(

@@ -27,4 +27,8 @@ constructor(
     fun getMainListItems(): LiveData<List<ListItem>> {
         return notesDao.getMainListItems()
     }
+
+    suspend fun getNoteById(noteId: Long): Note {
+        return notesDao.getNoteById(noteId)
+    }
 }

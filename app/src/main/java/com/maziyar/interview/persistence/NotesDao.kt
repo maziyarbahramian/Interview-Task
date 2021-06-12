@@ -18,4 +18,7 @@ interface NotesDao {
     @Query("SELECT * FROM ListItem ORDER BY date DESC")
     fun getMainListItems(): LiveData<List<ListItem>>
 
+    @Query("select * from notes where id=:noteId")
+    suspend fun getNoteById(noteId: Long): Note
+
 }
