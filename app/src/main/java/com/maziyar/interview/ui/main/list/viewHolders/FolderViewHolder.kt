@@ -1,10 +1,11 @@
-package com.maziyar.interview.ui.main.list
+package com.maziyar.interview.ui.main.list.viewHolders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.maziyar.interview.databinding.ListItemFolderBinding
 import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.ui.main.list.ItemClickListener
 
 class FolderViewHolder(
     private val view: ListItemFolderBinding
@@ -18,10 +19,16 @@ class FolderViewHolder(
         }
     }
 
-    fun bind(item: ListItem) {
+    fun bind(
+        item: ListItem,
+        itemClickListener: ItemClickListener
+    ) {
         view.apply {
             titleTextView.text = item.title
-            subTitleTextView.text = item.subTitle
+            subTitleTextView.text = "حاوی %s یادداشت".format(item.subTitle)
+
+            root.setOnClickListener { itemClickListener.onItemClick(item.id) }
+            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item.id) }
         }
     }
 }

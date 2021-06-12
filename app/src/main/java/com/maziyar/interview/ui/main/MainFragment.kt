@@ -16,6 +16,7 @@ import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
 import com.maziyar.interview.persistence.entities.Folder
 import com.maziyar.interview.ui.customViews.CustomDialog
+import com.maziyar.interview.ui.main.list.ItemClickListener
 import com.maziyar.interview.ui.main.list.MainAdapter
 import com.maziyar.interview.utils.SpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,8 +84,42 @@ class MainFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+        recyclerAdapter = MainAdapter(
+            folderItemClickListener = ItemClickListener(
+                onItemClickListener = {
+                    Toast.makeText(
+                        requireContext(),
+                        "folder clicked $it",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                },
+                showOverflowMenu = {
+                    Toast.makeText(
+                        requireContext(),
+                        "showoverflow for $it",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            ),
+            noteItemClickListener = ItemClickListener(
+                onItemClickListener = {
+                    Toast.makeText(requireContext(), "note clicked $it", Toast.LENGTH_SHORT)
+                        .show()
+                },
+                showOverflowMenu = {
+                    Toast.makeText(
+                        requireContext(),
+                        "showoverflow for $it",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            )
+        )
+
         binding.recyclerView.apply {
-            recyclerAdapter = MainAdapter()
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpaceItemDecoration(context, 8.0f))
