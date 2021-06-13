@@ -1,4 +1,4 @@
-package com.maziyar.interview.persistence.entities
+package com.maziyar.interview.persistence.views
 
 import androidx.room.DatabaseView
 import java.util.*
@@ -9,7 +9,7 @@ import java.util.*
                    title as title,
                    date, "" as subTitle,
                    0 as type
-            from notes where folder_id=-1 
+            from notes where folder_id = 1 
         union 
             select folders.id,
                    folders.name as title,
@@ -17,6 +17,7 @@ import java.util.*
                    (select count(id) from notes where folders.id=notes.folder_id) as subTitle,
                    1 as type 
             from folders
+            where folders.id != 1
         """
 )
 data class ListItem(

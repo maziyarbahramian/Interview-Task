@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.maziyar.interview.databinding.ListItemNoteBinding
-import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.persistence.entities.Note
 import com.maziyar.interview.ui.main.list.ItemClickListener
 import java.util.*

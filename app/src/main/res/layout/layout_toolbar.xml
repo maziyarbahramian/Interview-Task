@@ -34,7 +34,6 @@
             android:textColor="@color/black"
             android:textDirection="rtl"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/menu_button"

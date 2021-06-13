@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.maziyar.interview.databinding.ListItemFolderBinding
-import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.ui.main.list.ItemClickListener
 
 class FolderViewHolder(

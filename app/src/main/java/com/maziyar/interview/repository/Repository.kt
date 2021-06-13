@@ -1,10 +1,9 @@
 package com.maziyar.interview.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.maziyar.interview.persistence.NotesDao
 import com.maziyar.interview.persistence.entities.Folder
-import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.persistence.entities.Note
 import javax.inject.Inject
 
@@ -34,5 +33,17 @@ constructor(
 
     fun getNotesOfFolder(folderId: Long): LiveData<List<Note>> {
         return notesDao.getNotesOfFolder(folderId)
+    }
+
+    suspend fun renameFolder(folderName: String, folderId: Long):Int {
+        return notesDao.renameFolder(folderName, folderId)
+    }
+
+    suspend fun deleteNote(noteId: Long) {
+        return notesDao.deleteNote(noteId)
+    }
+
+    suspend fun deleteFolder(folderId: Long) {
+        return notesDao.deleteFolder(folderId)
     }
 }

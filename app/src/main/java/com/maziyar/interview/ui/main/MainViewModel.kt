@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maziyar.interview.persistence.entities.Folder
-import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,4 +29,22 @@ constructor(
         }
     }
 
+    fun renameFolder(folderName: String, folderId: Long) {
+        viewModelScope.launch {
+            val returnt = repository.renameFolder(folderName, folderId)
+            Log.i(TAG, "renameFolder: $returnt")
+        }
+    }
+
+    fun deleteNote(noteId: Long) {
+        viewModelScope.launch {
+            repository.deleteNote(noteId)
+        }
+    }
+
+    fun deleteFolder(folderId: Long) {
+        viewModelScope.launch {
+            repository.deleteFolder(folderId)
+        }
+    }
 }

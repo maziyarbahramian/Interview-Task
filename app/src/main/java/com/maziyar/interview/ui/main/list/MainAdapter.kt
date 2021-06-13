@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.ui.main.list.viewHolders.FolderViewHolder
 import com.maziyar.interview.ui.main.list.viewHolders.NoteViewHolder
 import java.lang.ClassCastException

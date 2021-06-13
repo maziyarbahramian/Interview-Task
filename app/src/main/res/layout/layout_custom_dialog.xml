@@ -19,7 +19,6 @@
             android:layout_alignParentTop="true"
             android:fontFamily="@font/iransans_medium"
             android:gravity="right"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="16sp"
             tools:text="@string/add_folder_dialog_title" />
@@ -30,10 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/iransans_regular"
+            android:fontFamily="@font/iran_sans"
             android:gravity="right"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="14sp"
+            android:visibility="gone"
             tools:text="@string/add_folder_dialog_description" />
 
         <EditText
@@ -43,7 +43,8 @@
             android:layout_height="32dp"
             android:layout_below="@id/description"
             android:layout_marginTop="16dp"
-            android:hint="@string/add_folder_dialog_edit_text_hint" />
+            android:hint="@string/dialog_folder_title"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/acceptButton"
@@ -52,7 +53,7 @@
             android:layout_height="36dp"
             android:layout_below="@id/input"
             android:layout_marginTop="16dp"
-            tools:text="@string/add_folder_dialog_accept_button" />
+            tools:text="@string/dialog_add_folder_button" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancelButton"
@@ -65,7 +66,7 @@
             android:layout_toRightOf="@id/acceptButton"
             android:paddingHorizontal="24dp"
             android:paddingVertical="6dp"
-            tools:text="@string/add_folder_dialog_cancel_button" />
+            tools:text="@string/dialog_cancel_button" />
 
     </RelativeLayout>
 

@@ -38,7 +38,7 @@
         <argument
             android:name="folderId"
             app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="1L" />
     </fragment>
     <fragment
         android:id="@+id/notesOfFolderFragment"

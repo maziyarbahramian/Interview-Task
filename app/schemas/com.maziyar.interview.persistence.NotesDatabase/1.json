@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c4fab3c64ee2466160b6eb73a33dc672",
+    "identityHash": "c051115f2ec1f283fa5e5583a2f19f0b",
     "entities": [
       {
         "tableName": "notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `folder_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `body` TEXT NOT NULL, `date` INTEGER, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `folder_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `body` TEXT NOT NULL, `date` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`folder_id`) REFERENCES `folders`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -45,8 +45,29 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_notes_folder_id",
+            "unique": false,
+            "columnNames": [
+              "folder_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_folder_id` ON `${TABLE_NAME}` (`folder_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "folders",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "folder_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "folders",
@@ -84,12 +105,12 @@
     "views": [
       {
         "viewName": "ListItem",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select id,\n                   title as title,\n                   date, \"\" as subTitle,\n                   0 as type\n            from notes where folder_id=-1 \n        union \n            select folders.id,\n                   folders.name as title,\n                   date, \n                   (select count(id) from notes where folders.id=notes.folder_id) as subTitle,\n                   1 as type \n            from folders"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS select id,\n                   title as title,\n                   date, \"\" as subTitle,\n                   0 as type\n            from notes where folder_id=1 \n        union \n            select folders.id,\n                   folders.name as title,\n                   date, \n                   (select count(id) from notes where folders.id=notes.folder_id) as subTitle,\n                   1 as type \n            from folders"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c4fab3c64ee2466160b6eb73a33dc672')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c051115f2ec1f283fa5e5583a2f19f0b')"
     ]
   }
 }

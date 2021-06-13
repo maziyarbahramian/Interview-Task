@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
 import com.maziyar.interview.persistence.entities.Folder
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.ui.customViews.CustomDialog
 import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
 import com.maziyar.interview.ui.customViews.listPopupWindwo.OnPopupMenuItemClickListener
@@ -70,7 +71,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         setupFloatingActionButtons()
         setupToolbar()
@@ -104,16 +105,10 @@ class MainFragment : Fragment() {
                         popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
                             when (popupItem.id) {
                                 PopupIds.RENAME -> {
-                                    Log.i(
-                                        TAG,
-                                        "setupRecyclerView: popup rename for folder ${folderItem.id} clicked"
-                                    )
+                                    showRenameFolderDialog(folderItem)
                                 }
                                 PopupIds.DELETE -> {
-                                    Log.i(
-                                        TAG,
-                                        "setupRecyclerView: popup delete for folder ${folderItem.id} clicked"
-                                    )
+                                    showDeleteFolderDialog(folderItem.id)
                                 }
                             }
                         }
@@ -132,10 +127,7 @@ class MainFragment : Fragment() {
                         anchor = anchorView,
                         popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
                             if (popupItem.id == PopupIds.DELETE) {
-                                Log.i(
-                                    TAG,
-                                    "setupRecyclerView: popup rename for note ${noteItem.id} clicked"
-                                )
+                                showDeleteNoteDialog(noteItem.id)
                             }
                         }
                     ).show()
@@ -174,13 +166,46 @@ class MainFragment : Fragment() {
         isClickable = !isClickable
     }
 
+    private fun showDeleteFolderDialog(folderId: Long) {
+        val dialog = CustomDialog.getDeleteFolderDialog(requireContext())
+
+        dialog.setAcceptButtonClickListener {
+            viewModel.deleteFolder(folderId)
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun showDeleteNoteDialog(noteId: Long) {
+        val dialog = CustomDialog.getDeleteNoteDialog(requireContext())
+
+        dialog.setAcceptButtonClickListener {
+            viewModel.deleteNote(noteId)
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun showRenameFolderDialog(folder: ListItem) {
+        val dialog = CustomDialog.getRenameFolderDialog(requireContext())
+        dialog.setAcceptButtonClickListener {
+            val newName = dialog.getInputText()
+            if (newName.isEmpty()) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.please_enter_folder_name),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                viewModel.renameFolder(newName, folder.id)
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
+    }
+
     private fun showAddFolderDialog() {
-        val dialog = CustomDialog(requireActivity())
-            .setTitleText(R.string.add_folder_dialog_title)
-            .setDescription(R.string.add_folder_dialog_description)
-            .setInputHint(R.string.add_folder_dialog_edit_text_hint)
-            .setAcceptButtonText(R.string.add_folder_dialog_accept_button)
-            .setCancelButtonText(R.string.add_folder_dialog_cancel_button)
+        val dialog = CustomDialog.getAddFolderDialog(requireContext())
 
         dialog.setAcceptButtonClickListener {
             val folderName = dialog.getInputText()

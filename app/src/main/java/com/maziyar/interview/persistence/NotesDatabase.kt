@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.maziyar.interview.persistence.entities.Folder
-import com.maziyar.interview.persistence.entities.ListItem
+import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.persistence.entities.Note
 import com.maziyar.interview.persistence.typeConverters.DateConverter
 

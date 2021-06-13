@@ -1,20 +1,53 @@
 package com.maziyar.interview.ui.customViews
 
-import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import androidx.annotation.StringRes
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.LayoutCustomDialogBinding
 
-class CustomDialog(context: Activity) : Dialog(context) {
+class CustomDialog(context: Context) : Dialog(context) {
     private val TAG = "CustomDialog"
+
+    companion object {
+        fun getAddFolderDialog(context: Context): CustomDialog {
+            return CustomDialog(context)
+                .setTitleText(R.string.add_folder_dialog_title)
+                .setDescription(R.string.add_folder_dialog_description)
+                .setInputHint(R.string.dialog_folder_title)
+                .setAcceptButtonText(R.string.dialog_add_folder_button)
+                .setCancelButtonText(R.string.dialog_cancel_button)
+        }
+
+        fun getDeleteNoteDialog(context: Context): CustomDialog {
+            return CustomDialog(context)
+                .setTitleText(R.string.delete_note_dialog_title)
+                .setDescription(R.string.delete_note_dialog_description)
+                .setAcceptButtonText(R.string.dialog_delete_button)
+                .setCancelButtonText(R.string.dialog_cancel_button)
+        }
+
+        fun getDeleteFolderDialog(context: Context): CustomDialog {
+            return CustomDialog(context)
+                .setTitleText(R.string.delete_folder_dialog_title)
+                .setDescription(R.string.delete_folder_dialog_description)
+                .setAcceptButtonText(R.string.dialog_delete_button)
+                .setCancelButtonText(R.string.dialog_cancel_button)
+        }
+
+        fun getRenameFolderDialog(context: Context): CustomDialog {
+            return CustomDialog(context)
+                .setTitleText(R.string.rename_folder_dialog_title)
+                .setInputHint(R.string.dialog_folder_title)
+                .setAcceptButtonText(R.string.dialog_save_button)
+                .setCancelButtonText(R.string.dialog_cancel_button)
+        }
+    }
+
     private var binding: LayoutCustomDialogBinding
 
 
@@ -24,35 +57,15 @@ class CustomDialog(context: Activity) : Dialog(context) {
             window.attributes.windowAnimations = R.style.DialogAnimation
         }
 
-
-//        val displayMetrics = DisplayMetrics()
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            val display = context.display
-//            display?.getRealMetrics(displayMetrics)
-//        } else {
-//            @Suppress("DEPRECATION")
-//            val display = context.windowManager.defaultDisplay
-//            @Suppress("DEPRECATION")
-//            display.getMetrics(displayMetrics)
-//        }
-//
-//        val displayWidth = displayMetrics.widthPixels
-//        val displayHeight = displayMetrics.heightPixels
-//
-//        val layoutParams = WindowManager.LayoutParams()
-//        layoutParams.copyFrom(window!!.attributes)
-
-//        val dialogWindowWidth = (displayWidth * 0.9).toInt()
-
         binding = LayoutCustomDialogBinding.inflate(LayoutInflater.from(context))
-//        binding.root.minimumWidth = dialogWindowWidth
+
         setContentView(binding.root)
         binding.cancelButton.setOnClickListener {
             dismiss()
         }
     }
 
-    fun makeInputVisible(): CustomDialog {
+    private fun makeInputVisible(): CustomDialog {
         binding.input.visibility = View.VISIBLE
         return this
     }
@@ -73,7 +86,7 @@ class CustomDialog(context: Activity) : Dialog(context) {
     }
 
     fun setTitleText(string: String): CustomDialog {
-        binding.title.text = string.toString()
+        binding.title.text = string
         return this
     }
 
@@ -83,18 +96,19 @@ class CustomDialog(context: Activity) : Dialog(context) {
     }
 
     fun setDescription(string: String): CustomDialog {
-        binding.description.text = string.toString()
+        binding.description.text = string
         return this
     }
 
     fun setDescription(@StringRes resId: Int): CustomDialog {
+        binding.description.visibility = View.VISIBLE
         binding.description.text = context.getString(resId)
         return this
     }
 
 
     fun setAcceptButtonText(string: String): CustomDialog {
-        binding.acceptButton.text = string.toString()
+        binding.acceptButton.text = string
         return this
     }
 
@@ -104,7 +118,7 @@ class CustomDialog(context: Activity) : Dialog(context) {
     }
 
     fun setCancelButtonText(string: String): CustomDialog {
-        binding.cancelButton.text = string.toString()
+        binding.cancelButton.text = string
         return this
     }
 
