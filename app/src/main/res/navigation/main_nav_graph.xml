@@ -56,8 +56,5 @@
                 android:defaultValue="-1L"
                 app:argType="long" />
         </action>
-        <argument
-            android:name="folderTitle"
-            app:argType="string" />
     </fragment>
 </navigation>

@@ -35,7 +35,7 @@ constructor(
         return notesDao.getNotesOfFolder(folderId)
     }
 
-    suspend fun renameFolder(folderName: String, folderId: Long):Int {
+    suspend fun renameFolder(folderName: String, folderId: Long): Int {
         return notesDao.renameFolder(folderName, folderId)
     }
 
@@ -45,5 +45,9 @@ constructor(
 
     suspend fun deleteFolder(folderId: Long) {
         return notesDao.deleteFolder(folderId)
+    }
+
+    fun getFolder(folderId: Long): LiveData<Folder> {
+        return notesDao.getFolder(folderId)
     }
 }

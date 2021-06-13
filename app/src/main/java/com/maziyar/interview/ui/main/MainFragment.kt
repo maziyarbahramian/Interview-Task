@@ -132,8 +132,7 @@ class MainFragment : Fragment() {
     private fun moveToNotesOfFolderFragment(folderItem: ListItem) {
         val direction =
             MainFragmentDirections.actionMainFragmentToNotesOfFolderFragment(
-                folderItem.id,
-                folderItem.title
+                folderItem.id
             )
         findNavController().navigate(direction)
     }

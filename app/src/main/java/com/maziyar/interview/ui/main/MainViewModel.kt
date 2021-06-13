@@ -31,8 +31,7 @@ constructor(
 
     fun renameFolder(folderName: String, folderId: Long) {
         viewModelScope.launch {
-            val returnt = repository.renameFolder(folderName, folderId)
-            Log.i(TAG, "renameFolder: $returnt")
+            repository.renameFolder(folderName, folderId)
         }
     }
 

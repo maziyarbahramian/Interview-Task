@@ -33,4 +33,7 @@ interface NotesDao {
     @Query("Delete FROM folders WHERE id=:folderId")
     suspend fun deleteFolder(folderId: Long)
 
+    @Query("SELECT * FROM folders WHERE id=:folderId")
+    fun getFolder(folderId: Long): LiveData<Folder>
+
 }
