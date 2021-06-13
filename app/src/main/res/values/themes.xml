@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="dropDownListViewStyle">@style/AppDropDownListViewStyle</item>
     </style>
 
     <style name="MainFabStyle" parent="Widget.Design.FloatingActionButton">
@@ -66,6 +67,11 @@
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
         <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="AppDropDownListViewStyle" parent="Widget.AppCompat.ListPopupWindow">
+        <item name="android:divider">#F1F2F9</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 
 

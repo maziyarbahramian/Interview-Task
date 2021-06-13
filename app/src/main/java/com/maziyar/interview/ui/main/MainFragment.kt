@@ -16,6 +16,9 @@ import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
 import com.maziyar.interview.persistence.entities.Folder
 import com.maziyar.interview.ui.customViews.CustomDialog
+import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
+import com.maziyar.interview.ui.customViews.listPopupWindwo.OnPopupMenuItemClickListener
+import com.maziyar.interview.ui.customViews.listPopupWindwo.PopupIds
 import com.maziyar.interview.ui.main.list.ItemClickListener
 import com.maziyar.interview.ui.main.list.MainAdapter
 import com.maziyar.interview.utils.SpaceItemDecoration
@@ -94,13 +97,27 @@ class MainFragment : Fragment() {
                         )
                     findNavController().navigate(direction)
                 },
-                showOverflowMenu = {
-                    Toast.makeText(
-                        requireContext(),
-                        "showoverflow for $it",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                showOverflowMenu = { folderItem, anchorView ->
+                    CustomListPopupWindow.getRenameAndDeletePopupWindow(
+                        context = requireContext(),
+                        anchor = anchorView,
+                        popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
+                            when (popupItem.id) {
+                                PopupIds.RENAME -> {
+                                    Log.i(
+                                        TAG,
+                                        "setupRecyclerView: popup rename for folder ${folderItem.id} clicked"
+                                    )
+                                }
+                                PopupIds.DELETE -> {
+                                    Log.i(
+                                        TAG,
+                                        "setupRecyclerView: popup delete for folder ${folderItem.id} clicked"
+                                    )
+                                }
+                            }
+                        }
+                    ).show()
                 }
             ),
             noteItemClickListener = ItemClickListener(
@@ -109,13 +126,19 @@ class MainFragment : Fragment() {
                         MainFragmentDirections.actionMainFragmentToEditNoteFragment(note.id)
                     findNavController().navigate(direction)
                 },
-                showOverflowMenu = {
-                    Toast.makeText(
-                        requireContext(),
-                        "showoverflow for $it",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                showOverflowMenu = { noteItem, anchorView ->
+                    CustomListPopupWindow.getDeletePopupWindow(
+                        context = requireContext(),
+                        anchor = anchorView,
+                        popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
+                            if (popupItem.id == PopupIds.DELETE) {
+                                Log.i(
+                                    TAG,
+                                    "setupRecyclerView: popup rename for note ${noteItem.id} clicked"
+                                )
+                            }
+                        }
+                    ).show()
                 }
             )
         )

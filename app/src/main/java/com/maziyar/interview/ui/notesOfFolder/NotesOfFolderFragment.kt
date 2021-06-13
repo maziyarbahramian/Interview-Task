@@ -55,7 +55,7 @@ class NotesOfFolderFragment : Fragment() {
                         )
                     findNavController().navigate(direction)
                 },
-                showOverflowMenu = {
+                showOverflowMenu = { note, anchorView ->
 
                 }
             )

@@ -31,7 +31,7 @@ class NoteViewHolder(
             subTitleTextView.text = getSubTitleText(item.date)
 
             root.setOnClickListener { itemClickListener.onItemClick(item) }
-            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item) }
+            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item, view.optionsButton) }
         }
     }
 
@@ -44,7 +44,7 @@ class NoteViewHolder(
             subTitleTextView.text = getSubTitleText(item.date!!)
 
             root.setOnClickListener { itemClickListener.onItemClick(item) }
-            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item) }
+            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item, view.optionsButton) }
         }
     }
 
