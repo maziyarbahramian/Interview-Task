@@ -63,11 +63,6 @@ class MainFragment : Fragment() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,62 +71,25 @@ class MainFragment : Fragment() {
         setupFloatingActionButtons()
         setupToolbar()
         setupRecyclerView()
-        viewModel.mainListLiveData.observe(viewLifecycleOwner, {
-            Log.i(TAG, "onViewCreated: $it")
-            recyclerAdapter.submitList(it)
-        })
+        setupObservers()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setupObservers() {
+        viewModel.mainListLiveData.observe(viewLifecycleOwner, {
+            recyclerAdapter.submitList(it)
+        })
     }
 
     private fun setupRecyclerView() {
         recyclerAdapter = MainAdapter(
             folderItemClickListener = ItemClickListener(
-                onItemClickListener = { folder ->
-                    val direction =
-                        MainFragmentDirections.actionMainFragmentToNotesOfFolderFragment(
-                            folder.id,
-                            folder.title
-                        )
-                    findNavController().navigate(direction)
-                },
-                showOverflowMenu = { folderItem, anchorView ->
-                    CustomListPopupWindow.getRenameAndDeletePopupWindow(
-                        context = requireContext(),
-                        anchor = anchorView,
-                        popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
-                            when (popupItem.id) {
-                                PopupIds.RENAME -> {
-                                    showRenameFolderDialog(folderItem)
-                                }
-                                PopupIds.DELETE -> {
-                                    showDeleteFolderDialog(folderItem.id)
-                                }
-                            }
-                        }
-                    ).show()
-                }
+                onItemClickListener = ::moveToNotesOfFolderFragment,
+                showOverflowMenu = ::showOverflowMenuForFolder
             ),
             noteItemClickListener = ItemClickListener(
-                onItemClickListener = { note ->
-                    val direction =
-                        MainFragmentDirections.actionMainFragmentToEditNoteFragment(note.id)
-                    findNavController().navigate(direction)
-                },
-                showOverflowMenu = { noteItem, anchorView ->
-                    CustomListPopupWindow.getDeletePopupWindow(
-                        context = requireContext(),
-                        anchor = anchorView,
-                        popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
-                            if (popupItem.id == PopupIds.DELETE) {
-                                showDeleteNoteDialog(noteItem.id)
-                            }
-                        }
-                    ).show()
-                }
+                onItemClickListener = ::moveToEditNoteFragment,
+                showOverflowMenu = ::showOverflowMenuForNote
             )
         )
 
@@ -140,6 +98,54 @@ class MainFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(SpaceItemDecoration(context, 8.0f))
         }
+    }
+
+    private fun showOverflowMenuForFolder(folderItem: ListItem, anchorView: View) {
+        CustomListPopupWindow.getRenameAndDeletePopupWindow(
+            context = requireContext(),
+            anchor = anchorView,
+            popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
+                when (popupItem.id) {
+                    PopupIds.RENAME -> {
+                        showRenameFolderDialog(folderItem)
+                    }
+                    PopupIds.DELETE -> {
+                        showDeleteFolderDialog(folderItem.id)
+                    }
+                }
+            }
+        ).show()
+    }
+
+    private fun showOverflowMenuForNote(noteItem: ListItem, anchorView: View) {
+        CustomListPopupWindow.getDeletePopupWindow(
+            context = requireContext(),
+            anchor = anchorView,
+            popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
+                if (popupItem.id == PopupIds.DELETE) {
+                    showDeleteNoteDialog(noteItem.id)
+                }
+            }
+        ).show()
+    }
+
+    private fun moveToNotesOfFolderFragment(folderItem: ListItem) {
+        val direction =
+            MainFragmentDirections.actionMainFragmentToNotesOfFolderFragment(
+                folderItem.id,
+                folderItem.title
+            )
+        findNavController().navigate(direction)
+    }
+
+    private fun moveToEditNoteFragment(noteItem: ListItem) {
+        val direction =
+            MainFragmentDirections.actionMainFragmentToEditNoteFragment(noteItem.id)
+        findNavController().navigate(direction)
+    }
+
+    private fun moveToEditNoteFragment() {
+        findNavController().navigate(R.id.action_mainFragment_to_editNoteFragment)
     }
 
     private fun setupFloatingActionButtons() {
@@ -153,8 +159,7 @@ class MainFragment : Fragment() {
             }
 
             fabAddNote.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_editNoteFragment)
-                Log.i(TAG, "add note button clicked")
+                moveToEditNoteFragment()
             }
         }
     }
