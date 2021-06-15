@@ -11,6 +11,10 @@ import androidx.navigation.fragment.navArgs
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentEditNoteBinding
 import com.maziyar.interview.persistence.entities.Note
+import com.maziyar.interview.ui.customViews.CustomDialog
+import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
+import com.maziyar.interview.ui.customViews.listPopupWindwo.OnPopupMenuItemClickListener
+import com.maziyar.interview.ui.customViews.listPopupWindwo.PopupIds
 import com.maziyar.interview.utils.extensions.toPersianDigit
 import dagger.hilt.android.AndroidEntryPoint
 import saman.zamani.persiandate.PersianDate
@@ -38,9 +42,6 @@ class EditNoteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     private fun getExistingNote() {
         if (args.noteId != -1L) {
@@ -64,8 +65,39 @@ class EditNoteFragment : Fragment() {
             backButton.setOnClickListener {
                 findNavController().popBackStack()
             }
+
+            menuButton.setOnClickListener {
+                if (args.noteId != -1L)
+                    showOverFloeMenu(args.noteId, it)
+            }
         }
     }
+
+    private fun showOverFloeMenu(noteId: Long, anchorView: View) {
+        CustomListPopupWindow.getDeletePopupWindow(
+            context = requireContext(),
+            anchor = anchorView,
+            popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
+                if (popupItem.id == PopupIds.DELETE) {
+                    showDeleteNoteDialog(noteId)
+                }
+            }
+        ).show()
+    }
+
+    private fun showDeleteNoteDialog(noteId: Long) {
+        val dialog = CustomDialog.getDeleteNoteDialog(requireContext())
+
+        dialog.setAcceptButtonClickListener {
+            viewModel.deleteNote(noteId)
+            binding.noteBodyEditText.setText("")
+            binding.noteTitleEditText.setText("")
+            dialog.dismiss()
+            backToPreviousPage()
+        }
+        dialog.show()
+    }
+
 
     private fun initDateTextView(persianDate: PersianDate = PersianDate()) {
         binding.dateTextView.text = getString(R.string.date_text_format).format(
@@ -79,13 +111,17 @@ class EditNoteFragment : Fragment() {
         val title = binding.noteTitleEditText.text.toString()
         val body = binding.noteBodyEditText.text.toString()
 
-        note.title = if (title.isNotEmpty()) title else getString(R.string.note_default_title)
+        note.title = title
         note.body = body
         note.folder_id = args.folderId
 
         if (note.date == null)
             note.date = Date()
         viewModel.setNote(note)
+    }
+
+    private fun backToPreviousPage() {
+        findNavController().popBackStack()
     }
 
 

@@ -25,8 +25,8 @@ constructor(
 
     fun insertNote() {
         viewModelScope.launch {
-            if (note.body.isNotEmpty()) {
-
+            if (note.body.isNotEmpty() || note.title.isNotEmpty()) {
+                if (note.title.isEmpty()) note.title = "بدون عنوان"
                 note.id = repository.insertNote(note)
 
             }
@@ -47,6 +47,12 @@ constructor(
             folder_id = note.folder_id
             id = if (id == null) note.id else id
             date = if (date == null) note.date else date
+        }
+    }
+
+    fun deleteNote(noteId: Long) {
+        viewModelScope.launch {
+            repository.deleteNote(noteId)
         }
     }
 
