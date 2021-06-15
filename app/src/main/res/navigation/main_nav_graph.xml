@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_editNoteFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/editNoteFragment">
             <argument
                 android:name="noteId"
@@ -20,6 +24,10 @@
         </action>
         <action
             android:id="@+id/action_mainFragment_to_notesOfFolderFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/notesOfFolderFragment">
             <argument
                 android:name="folderId"
@@ -50,6 +58,10 @@
             app:argType="long" />
         <action
             android:id="@+id/action_notesOfFolderFragment_to_editNoteFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:destination="@id/editNoteFragment">
             <argument
                 android:name="noteId"
