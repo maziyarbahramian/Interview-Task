@@ -79,9 +79,12 @@ class EditNoteFragment : Fragment() {
                 findNavController().popBackStack()
             }
 
+            if (args.noteId != -1L)
+                menuButton.visibility = View.VISIBLE
+            else menuButton.visibility = View.GONE
+
             menuButton.setOnClickListener {
-                if (args.noteId != -1L)
-                    showOverFloeMenu(args.noteId, it)
+                showOverFloeMenu(args.noteId, it)
             }
         }
     }
