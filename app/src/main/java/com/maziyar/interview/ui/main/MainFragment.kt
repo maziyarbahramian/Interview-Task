@@ -196,6 +196,7 @@ class MainFragment : Fragment() {
 
     private fun showRenameFolderDialog(folder: ListItem) {
         val dialog = CustomDialog.getRenameFolderDialog(requireContext())
+            .setInputText(folder.title)
         dialog.setAcceptButtonClickListener {
             val newName = dialog.getInputText()
             if (newName.isEmpty()) {

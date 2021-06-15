@@ -117,6 +117,7 @@ class NotesOfFolderFragment : Fragment() {
 
     private fun showRenameFolderDialog(folderId: Long) {
         val dialog = CustomDialog.getRenameFolderDialog(requireContext())
+            .setInputText(binding.toolbar.titleTextView.text.toString())
         dialog.setAcceptButtonClickListener {
             val newName = dialog.getInputText()
             if (newName.isEmpty()) {
@@ -135,7 +136,6 @@ class NotesOfFolderFragment : Fragment() {
 
     private fun showDeleteFolderDialog(folderId: Long) {
         val dialog = CustomDialog.getDeleteFolderDialog(requireContext())
-
         dialog.setAcceptButtonClickListener {
             viewModel.deleteFolder(folderId)
             dialog.dismiss()

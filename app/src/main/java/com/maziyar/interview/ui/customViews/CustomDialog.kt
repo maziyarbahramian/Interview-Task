@@ -146,4 +146,12 @@ class CustomDialog(context: Context) : Dialog(context) {
         return binding.input.text.toString()
     }
 
+    fun setInputText(string: String): CustomDialog {
+        if (binding.input.visibility == View.GONE || binding.input.visibility == View.INVISIBLE) {
+            throw IllegalStateException("!!! Input EditText isn't visible, set it with makeInputVisible()!!!")
+        }
+        binding.input.setText(string)
+        return this
+    }
+
 }
