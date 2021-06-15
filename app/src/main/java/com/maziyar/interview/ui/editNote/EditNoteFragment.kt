@@ -1,10 +1,13 @@
 package com.maziyar.interview.ui.editNote
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
+import androidx.core.text.toSpanned
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,6 +22,7 @@ import com.maziyar.interview.utils.extensions.toPersianDigit
 import dagger.hilt.android.AndroidEntryPoint
 import saman.zamani.persiandate.PersianDate
 import java.util.*
+
 
 @AndroidEntryPoint
 class EditNoteFragment : Fragment() {
@@ -42,6 +46,10 @@ class EditNoteFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.noteBodyEditText.anchor = binding.anchorView
+    }
 
     private fun getExistingNote() {
         if (args.noteId != -1L) {
@@ -49,7 +57,12 @@ class EditNoteFragment : Fragment() {
 
             viewModel.existingNoteLiveData.observe(viewLifecycleOwner, {
                 binding.noteTitleEditText.setText(it.title)
-                binding.noteBodyEditText.setText(it.body)
+                binding.noteBodyEditText.setText(
+                    HtmlCompat.fromHtml(
+                        it.body,
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+                )
                 initDateTextView(PersianDate(it.date))
                 setViewModelNote(it)
             })
@@ -89,9 +102,7 @@ class EditNoteFragment : Fragment() {
         val dialog = CustomDialog.getDeleteNoteDialog(requireContext())
 
         dialog.setAcceptButtonClickListener {
-            viewModel.deleteNote(noteId)
-            binding.noteBodyEditText.setText("")
-            binding.noteTitleEditText.setText("")
+            deleteNote(noteId)
             dialog.dismiss()
             backToPreviousPage()
         }
@@ -109,15 +120,25 @@ class EditNoteFragment : Fragment() {
 
     private fun setViewModelNote(note: Note = Note()) {
         val title = binding.noteTitleEditText.text.toString()
-        val body = binding.noteBodyEditText.text.toString()
+        val body = binding.noteBodyEditText.text
 
         note.title = title
-        note.body = body
+        note.body =
+            HtmlCompat.toHtml(
+                body!!.toSpanned(),
+                HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE
+            )
         note.folder_id = args.folderId
 
         if (note.date == null)
             note.date = Date()
         viewModel.setNote(note)
+    }
+
+    private fun deleteNote(noteId: Long) {
+        viewModel.deleteNote(noteId)
+        binding.noteBodyEditText.setText("")
+        binding.noteTitleEditText.setText("")
     }
 
     private fun backToPreviousPage() {
