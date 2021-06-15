@@ -155,11 +155,15 @@ class MainFragment : Fragment() {
 
             fabAddFolder.setOnClickListener {
                 showAddFolderDialog()
+                onFabAddButtonClicked()
             }
 
             fabAddNote.setOnClickListener {
                 moveToEditNoteFragment()
+                onFabAddButtonClicked()
             }
+
+            darkTransparentView.setOnClickListener { onFabAddButtonClicked() }
         }
     }
 
@@ -225,7 +229,6 @@ class MainFragment : Fragment() {
         }
 
         dialog.show()
-        onFabAddButtonClicked()
     }
 
 
@@ -233,9 +236,11 @@ class MainFragment : Fragment() {
         if (!isClickable) {
             binding.fabAddNote.visibility = View.VISIBLE
             binding.fabAddFolder.visibility = View.VISIBLE
+            binding.darkTransparentView.visibility = View.VISIBLE
         } else {
             binding.fabAddNote.visibility = View.INVISIBLE
             binding.fabAddFolder.visibility = View.INVISIBLE
+            binding.darkTransparentView.visibility = View.GONE
         }
     }
 
