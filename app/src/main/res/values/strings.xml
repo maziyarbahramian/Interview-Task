@@ -21,5 +21,10 @@
     <string name="note_default_title">بدون عنوان</string>
     <string name="note_title_edit_text_hint">عنوان یادداشت</string>
     <string name="dialog_save_button">ذخیره</string>
+    <string name="note_view_holder_subtitle_day_format">%s روز پیش</string>
+    <string name="note_view_holder_subtitle_hour_format">%s ساعت پیش</string>
+    <string name="note_view_holder_subtitle_minute_format">%s دقیقه پیش</string>
+    <string name="note_view_holder_subtitle_second_format">%s ثانیه پیش</string>
+    <string name="folder_view_holder_subtitle_format">حاوی %s یادداشت</string>
 
 </resources>

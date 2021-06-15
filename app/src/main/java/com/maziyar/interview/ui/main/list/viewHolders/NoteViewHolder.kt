@@ -3,10 +3,12 @@ package com.maziyar.interview.ui.main.list.viewHolders
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.maziyar.interview.R
 import com.maziyar.interview.databinding.ListItemNoteBinding
 import com.maziyar.interview.persistence.views.ListItem
 import com.maziyar.interview.persistence.entities.Note
 import com.maziyar.interview.ui.main.list.ItemClickListener
+import com.maziyar.interview.utils.extensions.toPersianDigit
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -31,7 +33,12 @@ class NoteViewHolder(
             subTitleTextView.text = getSubTitleText(item.date)
 
             root.setOnClickListener { itemClickListener.onItemClick(item) }
-            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item, view.optionsButton) }
+            optionsButton.setOnClickListener {
+                itemClickListener.showOverFlowMenu(
+                    item,
+                    view.optionsButton
+                )
+            }
         }
     }
 
@@ -44,7 +51,12 @@ class NoteViewHolder(
             subTitleTextView.text = getSubTitleText(item.date!!)
 
             root.setOnClickListener { itemClickListener.onItemClick(item) }
-            optionsButton.setOnClickListener { itemClickListener.showOverFlowMenu(item, view.optionsButton) }
+            optionsButton.setOnClickListener {
+                itemClickListener.showOverFlowMenu(
+                    item,
+                    view.optionsButton
+                )
+            }
         }
     }
 
@@ -55,20 +67,25 @@ class NoteViewHolder(
         val minutes = TimeUnit.MILLISECONDS.toMinutes(diff)
         val seconds = TimeUnit.MILLISECONDS.toSeconds(diff)
 
+        val context = view.root.context
         return when {
             days > 0 -> {
-                "%d روز پیش".format(days)
+                context.getString(R.string.note_view_holder_subtitle_day_format)
+                    .format(days.toString().toPersianDigit())
             }
             hours > 0 -> {
-                "%d ساعت پیش".format(hours)
+                context.getString(R.string.note_view_holder_subtitle_hour_format)
+                    .format(hours.toString().toPersianDigit())
             }
             minutes > 0 -> {
-                "%d دقیقه پیش".format(minutes)
+                context.getString(R.string.note_view_holder_subtitle_minute_format)
+                    .format(minutes.toString().toPersianDigit())
             }
             seconds > 0 -> {
-                "%d ثانیه پیش".format(minutes)
+                context.getString(R.string.note_view_holder_subtitle_second_format)
+                    .format(seconds.toString().toPersianDigit())
             }
-            else -> ""
+            else -> "چند لحظه پیش"
         }
 
     }
