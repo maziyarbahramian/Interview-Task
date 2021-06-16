@@ -8,7 +8,6 @@ import android.graphics.Typeface
 import android.text.*
 import android.text.style.StyleSpan
 import android.util.AttributeSet
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.AppCompatEditText
 import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
@@ -23,7 +22,7 @@ class CustomEditText : AppCompatEditText {
     var offsetx = 0
     var anchor: View? = null
 
-    private lateinit var selectionMeny: CustomListPopupWindow
+    private lateinit var selectionMenu: CustomListPopupWindow
 
     constructor(context: Context) : super(context)
 
@@ -53,33 +52,33 @@ class CustomEditText : AppCompatEditText {
 
     override fun onSelectionChanged(selStart: Int, selEnd: Int) {
         super.onSelectionChanged(selStart, selEnd)
-        if (this::selectionMeny.isInitialized) {
-            if (selectionMeny.isShowing)
-                selectionMeny.dismiss()
+        if (this::selectionMenu.isInitialized) {
+            if (selectionMenu.isShowing)
+                selectionMenu.dismiss()
         }
     }
 
     private fun showCustomSelectionMenu() {
-        if (this@CustomEditText::selectionMeny.isInitialized.not()) {
-            initDialog()
+        if (this@CustomEditText::selectionMenu.isInitialized.not()) {
+            initSelectionMenu()
         }
-        if (selectionMeny.isShowing.not()) {
+        if (selectionMenu.isShowing.not()) {
             if (offsetx > width / 2)
                 offsetx -= 550
             else
                 offsetx += 80
-            selectionMeny.horizontalOffset = offsetx
+            selectionMenu.horizontalOffset = offsetx
             if (offsety < height / 2)
                 offsety += 80
             else
                 offsety -= 80
-            selectionMeny.verticalOffset = offsety
-            selectionMeny.show()
+            selectionMenu.verticalOffset = offsety
+            selectionMenu.show()
         }
     }
 
-    private fun initDialog() {
-        selectionMeny = CustomListPopupWindow.getEditTextSelectionMenu(
+    private fun initSelectionMenu() {
+        selectionMenu = CustomListPopupWindow.getEditTextSelectionMenu(
             context,
             anchor ?: this,
             OnPopupMenuItemClickListener {
