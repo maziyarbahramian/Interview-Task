@@ -18,7 +18,6 @@
             android:layout_marginRight="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +33,6 @@
             android:textColor="@color/black"
             android:textDirection="rtl"
             android:textSize="18sp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/menu_button"
             app:layout_constraintRight_toLeftOf="@id/back_button"
@@ -49,7 +47,6 @@
             android:layout_marginLeft="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_overflow"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -1,8 +1,6 @@
 package com.maziyar.interview.ui.notesOfFolder
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentNotesOfFolderBinding
 import com.maziyar.interview.persistence.entities.Note
+import com.maziyar.interview.ui.BaseFragment
 import com.maziyar.interview.ui.customViews.CustomDialog
 import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
 import com.maziyar.interview.ui.customViews.listPopupWindwo.OnPopupMenuItemClickListener
@@ -23,8 +22,22 @@ import com.maziyar.interview.utils.SpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotesOfFolderFragment : Fragment() {
+class NotesOfFolderFragment : BaseFragment() {
     private val TAG = "NotesOfFolderFragment"
+
+    override var pageTitle: String = ""
+
+    override val toolbarVisibility: Int
+        get() = View.VISIBLE
+
+    override val backButtonVisibility: Int
+        get() = View.VISIBLE
+
+    override val menuButtonVisibility: Int
+        get() = View.VISIBLE
+
+    override var menuButtonClickListener: View.OnClickListener? =
+        View.OnClickListener(::showOverflowMenuForFolder)
 
     private var _binding: FragmentNotesOfFolderBinding? = null
     private val binding get() = _binding!!
@@ -40,7 +53,6 @@ class NotesOfFolderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNotesOfFolderBinding.inflate(inflater, container, false)
-        setupToolbar()
         setupFabAddNote()
         setupRecyclerView()
         setupObservers()
@@ -52,7 +64,8 @@ class NotesOfFolderFragment : Fragment() {
         viewModel.getNotesOfFolder(args.folderId)
 
         viewModel.folderLiveData.observe(viewLifecycleOwner, {
-            binding.toolbar.titleTextView.text = it.name
+            pageTitle = it.name
+            uiCommunicationListener.setTitle(it.name)
         })
 
         viewModel.notesOfFolderLiveData.observe(viewLifecycleOwner, {
@@ -76,17 +89,17 @@ class NotesOfFolderFragment : Fragment() {
         }
     }
 
-    private fun showOverflowMenuForFolder(folderId: Long, anchorView: View) {
+    private fun showOverflowMenuForFolder(anchorView: View) {
         CustomListPopupWindow.getRenameAndDeletePopupWindow(
             context = requireContext(),
             anchor = anchorView,
             popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
                 when (popupItem.id) {
                     PopupIds.RENAME -> {
-                        showRenameFolderDialog(folderId)
+                        showRenameFolderDialog(args.folderId)
                     }
                     PopupIds.DELETE -> {
-                        showDeleteFolderDialog(folderId)
+                        showDeleteFolderDialog(args.folderId)
                     }
                 }
             }
@@ -117,7 +130,7 @@ class NotesOfFolderFragment : Fragment() {
 
     private fun showRenameFolderDialog(folderId: Long) {
         val dialog = CustomDialog.getRenameFolderDialog(requireContext())
-            .setInputText(binding.toolbar.titleTextView.text.toString())
+            .setInputText(pageTitle)
         dialog.setAcceptButtonClickListener {
             val newName = dialog.getInputText()
             if (newName.isEmpty()) {
@@ -163,24 +176,6 @@ class NotesOfFolderFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun setupToolbar() {
-        binding.toolbar.apply {
-            root.elevation = 1f
-            titleTextView.visibility = View.VISIBLE
-
-            menuButton.visibility = View.VISIBLE
-
-            backButton.visibility = View.VISIBLE
-
-            backButton.setOnClickListener {
-                findNavController().popBackStack()
-            }
-
-            menuButton.setOnClickListener {
-                showOverflowMenuForFolder(args.folderId, it)
-            }
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

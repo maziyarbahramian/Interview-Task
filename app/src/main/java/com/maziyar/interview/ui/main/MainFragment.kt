@@ -1,8 +1,6 @@
 package com.maziyar.interview.ui.main
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,7 @@ import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentMainBinding
 import com.maziyar.interview.persistence.entities.Folder
 import com.maziyar.interview.persistence.views.ListItem
+import com.maziyar.interview.ui.BaseFragment
 import com.maziyar.interview.ui.customViews.CustomDialog
 import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
 import com.maziyar.interview.ui.customViews.listPopupWindwo.OnPopupMenuItemClickListener
@@ -27,8 +26,21 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
     private val TAG = "MainFragment"
+
+    override val pageTitle: String
+        get() = requireContext().getString(R.string.notes)
+
+    override val toolbarVisibility: Int
+        get() = View.VISIBLE
+    override val backButtonVisibility: Int
+        get() = View.GONE
+    override val menuButtonVisibility: Int
+        get() = View.GONE
+
+    override var menuButtonClickListener: View.OnClickListener? = null
+
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -69,7 +81,6 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         setupFloatingActionButtons()
-        setupToolbar()
         setupRecyclerView()
         setupObservers()
         return binding.root
@@ -264,13 +275,6 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun setupToolbar() {
-        binding.toolbar.apply {
-            titleTextView.visibility = View.VISIBLE
-            titleTextView.text = getString(R.string.notes)
-            root.elevation = 1f
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

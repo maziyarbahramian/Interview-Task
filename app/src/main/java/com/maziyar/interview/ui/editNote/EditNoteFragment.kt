@@ -1,13 +1,11 @@
 package com.maziyar.interview.ui.editNote
 
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.core.text.toSpanned
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -29,6 +27,21 @@ import java.util.*
 class EditNoteFragment : BaseFragment() {
     private val TAG = "EditNoteFragment"
 
+    override val pageTitle: String = ""
+
+    override val toolbarVisibility: Int
+        get() = View.VISIBLE
+    override val backButtonVisibility: Int
+        get() = View.VISIBLE
+    override val menuButtonVisibility: Int
+        get() {
+            return if (args.noteId != -1L) View.VISIBLE else View.GONE
+        }
+
+    override var menuButtonClickListener: View.OnClickListener? =
+        View.OnClickListener(::showOverFloeMenu)
+
+
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
 
@@ -41,7 +54,6 @@ class EditNoteFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditNoteBinding.inflate(inflater, container, false)
-        setupToolbar()
         initDateTextView()
         getExistingNote()
         return binding.root
@@ -71,32 +83,14 @@ class EditNoteFragment : BaseFragment() {
 
     }
 
-    private fun setupToolbar() {
-        binding.toolbar.apply {
-            backButton.visibility = View.VISIBLE
-            menuButton.visibility = View.VISIBLE
 
-            backButton.setOnClickListener {
-                findNavController().popBackStack()
-            }
-
-            if (args.noteId != -1L)
-                menuButton.visibility = View.VISIBLE
-            else menuButton.visibility = View.GONE
-
-            menuButton.setOnClickListener {
-                showOverFloeMenu(args.noteId, it)
-            }
-        }
-    }
-
-    private fun showOverFloeMenu(noteId: Long, anchorView: View) {
+    private fun showOverFloeMenu(anchorView: View) {
         CustomListPopupWindow.getDeletePopupWindow(
             context = requireContext(),
             anchor = anchorView,
             popupMenuItemClick = OnPopupMenuItemClickListener { popupItem ->
                 if (popupItem.id == PopupIds.DELETE) {
-                    showDeleteNoteDialog(noteId)
+                    showDeleteNoteDialog(args.noteId)
                 }
             }
         ).show()
@@ -108,7 +102,7 @@ class EditNoteFragment : BaseFragment() {
         dialog.setAcceptButtonClickListener {
             deleteNote(noteId)
             dialog.dismiss()
-            backToPreviousPage()
+            popBackStack()
         }
         dialog.show()
     }
@@ -143,10 +137,6 @@ class EditNoteFragment : BaseFragment() {
         viewModel.deleteNote(noteId)
         binding.noteBodyEditText.setText("")
         binding.noteTitleEditText.setText("")
-    }
-
-    private fun backToPreviousPage() {
-        findNavController().popBackStack()
     }
 
 
