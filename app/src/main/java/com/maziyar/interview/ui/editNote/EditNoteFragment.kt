@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.maziyar.interview.R
 import com.maziyar.interview.databinding.FragmentEditNoteBinding
 import com.maziyar.interview.persistence.entities.Note
+import com.maziyar.interview.ui.BaseFragment
 import com.maziyar.interview.ui.customViews.CustomDialog
 import com.maziyar.interview.ui.customViews.listPopupWindwo.CustomListPopupWindow
 import com.maziyar.interview.ui.customViews.listPopupWindwo.OnPopupMenuItemClickListener
@@ -25,7 +26,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class EditNoteFragment : Fragment() {
+class EditNoteFragment : BaseFragment() {
     private val TAG = "EditNoteFragment"
 
     private var _binding: FragmentEditNoteBinding? = null
@@ -152,6 +153,7 @@ class EditNoteFragment : Fragment() {
     override fun onDestroyView() {
         setViewModelNote()
         viewModel.insertNote()
+        uiCommunicationListener.hideSoftKeyboard()
         super.onDestroyView()
     }
 
