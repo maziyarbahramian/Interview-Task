@@ -165,6 +165,7 @@ class NotesOfFolderFragment : Fragment() {
 
     private fun setupToolbar() {
         binding.toolbar.apply {
+            root.elevation = 1f
             titleTextView.visibility = View.VISIBLE
 
             menuButton.visibility = View.VISIBLE

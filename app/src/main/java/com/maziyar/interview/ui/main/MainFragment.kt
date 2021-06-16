@@ -268,6 +268,7 @@ class MainFragment : Fragment() {
         binding.toolbar.apply {
             titleTextView.visibility = View.VISIBLE
             titleTextView.text = getString(R.string.notes)
+            root.elevation = 1f
         }
     }
 
