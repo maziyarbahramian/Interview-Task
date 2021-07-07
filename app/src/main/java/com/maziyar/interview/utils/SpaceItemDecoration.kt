@@ -23,15 +23,8 @@ class SpaceItemDecoration(context: Context, margin: Float) : RecyclerView.ItemDe
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-//        outRect.left = space
-//        outRect.right = space
         outRect.bottom = space / 2
         outRect.top = space / 2
 
-//        if (parent.getChildLayoutPosition(view) == 0) {
-//            outRect.top = space
-//        } else {
-//            outRect.top = 0;
-//        }
     }
 }
