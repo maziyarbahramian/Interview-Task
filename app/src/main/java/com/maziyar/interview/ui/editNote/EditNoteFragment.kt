@@ -54,13 +54,14 @@ class EditNoteFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditNoteBinding.inflate(inflater, container, false)
-        initDateTextView()
-        getExistingNote()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initDateTextView()
+        getExistingNote()
         binding.noteBodyEditText.anchor = binding.anchorView
     }
 

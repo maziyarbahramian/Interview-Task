@@ -53,10 +53,14 @@ class NotesOfFolderFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNotesOfFolderBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupFabAddNote()
         setupRecyclerView()
         setupObservers()
-        return binding.root
     }
 
     private fun setupObservers() {
